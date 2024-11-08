@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "9373b447-c33b-4f30-8f5a-412bc95dcbe3",
+		"_postman_id": "1326dcbd-2c67-4fba-a32e-25f095b12fe6",
 		"name": "FitFeed API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39577092"
+		"_exporter_id": "39607876"
 	},
 	"item": [
 		{
@@ -88,7 +88,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Test Workout\",\n    \"timestamp\": 1731004635247\n}",
+					"raw": "{\n    \"workoutName\": \"Test Workout\",\n    \"workoutTimestamp\": 1731004635247,\n    \"exercises\": [\n        {\n            \"exerciseName\": \"Test Exercise 1\",\n            \"sets\": 1,\n            \"reps\": 2,\n            \"weight\": 3.0\n        },\n        {\n            \"exerciseName\": \"Test Exercise 2\",\n            \"sets\": 4,\n            \"reps\": 5,\n            \"weight\": 6.0\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -134,7 +134,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/workout/8",
+					"raw": "http://localhost:8081/workout/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -142,7 +142,7 @@
 					"port": "8081",
 					"path": [
 						"workout",
-						"8"
+						"1"
 					]
 				}
 			},
@@ -170,56 +170,11 @@
 		}
 	],
 	"auth": {
-		"type": "oauth2",
-		"oauth2": [
+		"type": "bearer",
+		"bearer": [
 			{
-				"key": "password",
-				"value": "joshiscool",
-				"type": "string"
-			},
-			{
-				"key": "username",
-				"value": "fitfeed-admin",
-				"type": "string"
-			},
-			{
-				"key": "grant_type",
-				"value": "password_credentials",
-				"type": "string"
-			},
-			{
-				"key": "clientSecret",
-				"value": "ETcdqAuoZD3JJe0vhzw9AhmuLhDg6vIV",
-				"type": "string"
-			},
-			{
-				"key": "redirect_uri",
-				"value": "http://localhost:8081",
-				"type": "string"
-			},
-			{
-				"key": "authUrl",
-				"value": "http://localhost:8080/realms/fitfeed-realm/protocol/openid-connect/auth",
-				"type": "string"
-			},
-			{
-				"key": "accessTokenUrl",
-				"value": "http://localhost:8080/realms/fitfeed-realm/protocol/openid-connect/token",
-				"type": "string"
-			},
-			{
-				"key": "clientId",
-				"value": "fitfeed-rest-api",
-				"type": "string"
-			},
-			{
-				"key": "scope",
-				"value": "openid",
-				"type": "string"
-			},
-			{
-				"key": "addTokenTo",
-				"value": "header",
+				"key": "token",
+				"value": "{{TOKEN}}",
 				"type": "string"
 			}
 		]
