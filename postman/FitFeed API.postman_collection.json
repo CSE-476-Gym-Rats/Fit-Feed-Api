@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "9373b447-c33b-4f30-8f5a-412bc95dcbe3",
+		"name": "FitFeed API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39577092"
+	},
+	"item": [
+		{
+			"name": "Get Token from Keycloak",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "fitfeed-admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "joshiscool",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "fitfeed-rest-api",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "ETcdqAuoZD3JJe0vhzw9AhmuLhDg6vIV",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/fitfeed-realm/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"fitfeed-realm",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Workout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Workout\",\n    \"timestamp\": 1731004635247\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/workout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Workouts For User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/workouts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Workout By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/workout/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"workout",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Workout By Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/workout/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"workout",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "password",
+				"value": "joshiscool",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "fitfeed-admin",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "password_credentials",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "ETcdqAuoZD3JJe0vhzw9AhmuLhDg6vIV",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "http://localhost:8081",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "http://localhost:8080/realms/fitfeed-realm/protocol/openid-connect/auth",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:8080/realms/fitfeed-realm/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "fitfeed-rest-api",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.sendRequest({",
+					"    url: 'http://localhost:8080/realms/fitfeed-realm/protocol/openid-connect/token',",
+					"    method: 'POST',",
+					"    header: {",
+					"        'content-type': 'application/x-www-form-urlencoded'",
+					"    },",
+					"    body: {",
+					"        mode: 'urlencoded',",
+					"        urlencoded: [",
+					"            { key: \"grant_type\", value: \"password\" },",
+					"            { key: \"username\", value: \"fitfeed-admin\" },",
+					"            { key: \"password\", value: \"joshiscool\" },",
+					"            { key: \"client_id\", value: \"fitfeed-rest-api\" },",
+					"            { key: \"client_secret\", value: \"ETcdqAuoZD3JJe0vhzw9AhmuLhDg6vIV\" }",
+					"        ]",
+					"    }",
+					"}, (err, res) => pm.collectionVariables.set(\"TOKEN\", res.json().access_token));"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TOKEN",
+			"value": ""
+		}
+	]
+}
