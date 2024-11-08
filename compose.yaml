@@ -1,0 +1,40 @@
+services:
+
+  mysql:
+    container_name: 'fitfeed-mysql'
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=mydatabase'
+      - 'MYSQL_PASSWORD=secret'
+      - 'MYSQL_ROOT_PASSWORD=verysecret'
+      - 'MYSQL_USER=myuser'
+    ports:
+      - '3306:3306'
+
+  keycloak:
+    container_name: 'fitfeed-keycloak'
+    image: 'quay.io/keycloak/keycloak:26.0.5'
+    command:
+      - 'start-dev'
+      - '--import-realm'
+    ports:
+      - '8080:8080'
+    volumes:
+      - './keycloak/:/opt/keycloak/data/import/'
+    environment:
+      - 'KC_BOOTSTRAP_ADMIN_USERNAME=admin'
+      - 'KC_BOOTSTRAP_ADMIN_PASSWORD=password'
+      - 'KC_HOSTNAME_URL=http://localhost:8080'
+      - 'KC_HOSTNAME_ADMIN_URL=http://localhost:8080'
+      - 'KC_HOSTNAME_STRICT_BACKCHANNEL=true'
+      - 'KC_HTTP_RELATIVE_PATH=/'
+      - 'KC_HTTP_ENABLED=true'
+      - 'KC_HEALTH_ENABLED=true'
+      - 'KC_METRICS_ENABLED=true'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: [ "CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000; echo -e 'GET /health/ready HTTP/1.1\r\nHost: localhost:9000\r\nConnection: close\r\n\r\n' >&3;cat <&3 | grep -q '\"status\": \"UP\"' && exit 0 || exit 1" ]
+      interval: 5s
+      timeout: 10s
+      retries: 20
