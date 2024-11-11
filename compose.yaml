@@ -3,7 +3,7 @@ services:
   localhost:
     container_name: 'fitfeed-localhost'
     image: alpine:latest
-    command: sleep infinity
+    command: 'tail -f /dev/null'
     ports:
       - "8080:8080"
       - "8081:8081"
@@ -12,6 +12,7 @@ services:
   api:
     build: .
     container_name: 'fitfeed-api'
+    image: 'holtster/fitfeed-api:latest'
     depends_on:
       keycloak:
         condition: service_healthy
