@@ -7,71 +7,17 @@
 	},
 	"item": [
 		{
-			"name": "Get Token from Keycloak",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "grant_type",
-							"value": "password",
-							"type": "text"
-						},
-						{
-							"key": "username",
-							"value": "fitfeed-admin",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "joshiscool",
-							"type": "text"
-						},
-						{
-							"key": "client_id",
-							"value": "fitfeed-rest-api",
-							"type": "text"
-						},
-						{
-							"key": "client_secret",
-							"value": "ETcdqAuoZD3JJe0vhzw9AhmuLhDg6vIV",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8080/realms/fitfeed-realm/protocol/openid-connect/token",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"realms",
-						"fitfeed-realm",
-						"protocol",
-						"openid-connect",
-						"token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get User",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/me",
+					"raw": "http://api.fitfeed.online:8081/me",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"api",
+						"fitfeed",
+						"online"
 					],
 					"port": "8081",
 					"path": [
@@ -96,10 +42,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/workout",
+					"raw": "http://api.fitfeed.online:8081/workout",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"api",
+						"fitfeed",
+						"online"
 					],
 					"port": "8081",
 					"path": [
@@ -115,10 +63,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/workouts",
+					"raw": "http://api.fitfeed.online:8081/workouts",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"api",
+						"fitfeed",
+						"online"
 					],
 					"port": "8081",
 					"path": [
@@ -134,10 +84,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/workout/1",
+					"raw": "http://api.fitfeed.online:8081/workout/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"api",
+						"fitfeed",
+						"online"
 					],
 					"port": "8081",
 					"path": [
@@ -154,15 +106,50 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/workout/1",
+					"raw": "http://api.fitfeed.online:8081/workout/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"api",
+						"fitfeed",
+						"online"
 					],
 					"port": "8081",
 					"path": [
 						"workout",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"fitfeed-admin\",\r\n    \"password\": \"joshiscool\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://api.fitfeed.online:8081/login",
+					"protocol": "http",
+					"host": [
+						"api",
+						"fitfeed",
+						"online"
+					],
+					"port": "8081",
+					"path": [
+						"login"
 					]
 				}
 			},
@@ -187,20 +174,14 @@
 				"packages": {},
 				"exec": [
 					"pm.sendRequest({",
-					"    url: 'http://localhost:8080/realms/fitfeed-realm/protocol/openid-connect/token',",
+					"    url: 'http://api.fitfeed.online:8081/login',",
 					"    method: 'POST',",
 					"    header: {",
-					"        'content-type': 'application/x-www-form-urlencoded'",
+					"        'content-type': 'application/json'",
 					"    },",
 					"    body: {",
-					"        mode: 'urlencoded',",
-					"        urlencoded: [",
-					"            { key: \"grant_type\", value: \"password\" },",
-					"            { key: \"username\", value: \"fitfeed-admin\" },",
-					"            { key: \"password\", value: \"joshiscool\" },",
-					"            { key: \"client_id\", value: \"fitfeed-rest-api\" },",
-					"            { key: \"client_secret\", value: \"ETcdqAuoZD3JJe0vhzw9AhmuLhDg6vIV\" }",
-					"        ]",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({ \"username\": \"fitfeed-admin\", \"password\": \"joshiscool\" })",
 					"    }",
 					"}, (err, res) => pm.collectionVariables.set(\"TOKEN\", res.json().access_token));"
 				]
