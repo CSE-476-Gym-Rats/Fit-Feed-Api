@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Configuration
 @EnableWebSecurity
@@ -35,7 +34,7 @@ public class WebSecurityConfig {
             final var roles = realmAccess.flatMap(
                     map -> Optional.ofNullable((List<String>) map.get("roles"))
             );
-            return roles.map(List::stream).orElse(Stream.empty())
+            return roles.stream().flatMap(Collection::stream)
                     .map(SimpleGrantedAuthority::new)
                     .map(GrantedAuthority.class::cast).toList();
         };
@@ -68,6 +67,7 @@ public class WebSecurityConfig {
         }).csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests(requests -> {
+            requests.requestMatchers("/login").permitAll();
             requests.requestMatchers("/me").authenticated();
             requests.requestMatchers("/workout", "/workouts", "/workout/{workout-id}").authenticated();
             requests.anyRequest().denyAll(); // todo: add other endpoints to filter chain
