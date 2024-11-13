@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "1326dcbd-2c67-4fba-a32e-25f095b12fe6",
-		"name": "FitFeed API",
+		"_postman_id": "e8bac066-773f-40b7-8750-351ac9d509bf",
+		"name": "FitFeed API [Public]",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39607876"
+		"_exporter_id": "39577092"
 	},
 	"item": [
 		{
@@ -12,14 +12,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://api.fitfeed.online:8081/me",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/me",
 					"host": [
-						"api",
-						"fitfeed",
-						"online"
+						"{{BASE_URL}}"
 					],
-					"port": "8081",
 					"path": [
 						"me"
 					]
@@ -42,14 +38,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://api.fitfeed.online:8081/workout",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/workout",
 					"host": [
-						"api",
-						"fitfeed",
-						"online"
+						"{{BASE_URL}}"
 					],
-					"port": "8081",
 					"path": [
 						"workout"
 					]
@@ -63,14 +55,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://api.fitfeed.online:8081/workouts",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/workouts",
 					"host": [
-						"api",
-						"fitfeed",
-						"online"
+						"{{BASE_URL}}"
 					],
-					"port": "8081",
 					"path": [
 						"workouts"
 					]
@@ -84,14 +72,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://api.fitfeed.online:8081/workout/1",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/workout/1",
 					"host": [
-						"api",
-						"fitfeed",
-						"online"
+						"{{BASE_URL}}"
 					],
-					"port": "8081",
 					"path": [
 						"workout",
 						"1"
@@ -106,14 +90,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://api.fitfeed.online:8081/workout/1",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/workout/1",
 					"host": [
-						"api",
-						"fitfeed",
-						"online"
+						"{{BASE_URL}}"
 					],
-					"port": "8081",
 					"path": [
 						"workout",
 						"1"
@@ -140,16 +120,41 @@
 					}
 				},
 				"url": {
-					"raw": "http://api.fitfeed.online:8081/login",
-					"protocol": "http",
+					"raw": "{{BASE_URL}}/login",
 					"host": [
-						"api",
-						"fitfeed",
-						"online"
+						"{{BASE_URL}}"
 					],
-					"port": "8081",
 					"path": [
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Emma\",\r\n    \"lastName\": \"Eddy\",\r\n    \"username\": \"dil3mma\",\r\n    \"email\": \"emma@gmail.com\",\r\n    \"enabled\": true,\r\n    \"credentials\": [\r\n        {\r\n            \"type\": \"password\",\r\n            \"value\": \"ilovealex\",\r\n            \"temporary\": false\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/register",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"register"
 					]
 				}
 			},
@@ -174,7 +179,7 @@
 				"packages": {},
 				"exec": [
 					"pm.sendRequest({",
-					"    url: 'http://api.fitfeed.online:8081/login',",
+					"    url: pm.collectionVariables.get(\"BASE_URL\") + '/login',",
 					"    method: 'POST',",
 					"    header: {",
 					"        'content-type': 'application/json'",
@@ -202,6 +207,11 @@
 		{
 			"key": "TOKEN",
 			"value": ""
+		},
+		{
+			"key": "BASE_URL",
+			"value": "http://api.fitfeed.online:8081",
+			"type": "string"
 		}
 	]
 }

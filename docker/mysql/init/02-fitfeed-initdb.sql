@@ -1275,7 +1275,7 @@ CREATE TABLE `OFFLINE_CLIENT_SESSION` (
 
 LOCK TABLES `OFFLINE_CLIENT_SESSION` WRITE;
 /*!40000 ALTER TABLE `OFFLINE_CLIENT_SESSION` DISABLE KEYS */;
-INSERT INTO `OFFLINE_CLIENT_SESSION` VALUES ('9d7b8a23-83ce-4303-80e1-b6bd0b2a4dca','715844ec-1a4f-4686-a692-bb7b40a680af','0',1731347017,'{\"authMethod\":\"openid-connect\",\"redirectUri\":\"http://localhost:8080/admin/master/console/#/fitfeed-realm/clients/061aeb14-6a34-4895-bafc-d34dd7910976/settings\",\"notes\":{\"clientId\":\"715844ec-1a4f-4686-a692-bb7b40a680af\",\"iss\":\"http://localhost:8080/realms/master\",\"startedAt\":\"1731347015\",\"response_type\":\"code\",\"level-of-authentication\":\"-1\",\"code_challenge_method\":\"S256\",\"nonce\":\"09c066a9-757d-4e6d-918a-f359d253f96b\",\"response_mode\":\"query\",\"scope\":\"openid\",\"userSessionStartedAt\":\"1731347015\",\"redirect_uri\":\"http://localhost:8080/admin/master/console/#/fitfeed-realm/clients/061aeb14-6a34-4895-bafc-d34dd7910976/settings\",\"state\":\"b2fd9b5c-26cb-41b6-beee-a8741dfbf361\",\"code_challenge\":\"depaevK2Cdj6hNJMOmZqZ9yeBLQjHGt_1lqtpNxB0D4\",\"SSO_AUTH\":\"true\"}}','local','local',3);
+INSERT INTO `OFFLINE_CLIENT_SESSION` VALUES ('4c117933-07fd-45b6-a4d0-3bef8bf4e688','715844ec-1a4f-4686-a692-bb7b40a680af','0',1731479491,'{\"authMethod\":\"openid-connect\",\"redirectUri\":\"http://localhost:8080/admin/master/console/#/fitfeed-realm/users\",\"notes\":{\"clientId\":\"715844ec-1a4f-4686-a692-bb7b40a680af\",\"iss\":\"http://localhost:8080/realms/master\",\"startedAt\":\"1731479490\",\"response_type\":\"code\",\"level-of-authentication\":\"-1\",\"code_challenge_method\":\"S256\",\"nonce\":\"1b5d6a22-9722-4cc4-87d8-6c92bb3a3efd\",\"response_mode\":\"query\",\"scope\":\"openid\",\"userSessionStartedAt\":\"1731479490\",\"redirect_uri\":\"http://localhost:8080/admin/master/console/#/fitfeed-realm/users\",\"state\":\"f7c83c4b-71b1-4f6d-8086-c3247276c1ac\",\"code_challenge\":\"j2edGO1gqsu85-jZXBbPJfwzU5AcgKoe8YWlLrq92JM\"}}','local','local',1);
 /*!40000 ALTER TABLE `OFFLINE_CLIENT_SESSION` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1309,7 +1309,7 @@ CREATE TABLE `OFFLINE_USER_SESSION` (
 
 LOCK TABLES `OFFLINE_USER_SESSION` WRITE;
 /*!40000 ALTER TABLE `OFFLINE_USER_SESSION` DISABLE KEYS */;
-INSERT INTO `OFFLINE_USER_SESSION` VALUES ('9d7b8a23-83ce-4303-80e1-b6bd0b2a4dca','0696976c-46ae-46af-8aac-5e87c176905a','a0eed67d-7ba7-43be-975d-4b43b992cb82',1731347015,'0','{\"ipAddress\":\"192.168.65.1\",\"authMethod\":\"openid-connect\",\"rememberMe\":false,\"started\":0,\"notes\":{\"KC_DEVICE_NOTE\":\"eyJpcEFkZHJlc3MiOiIxOTIuMTY4LjY1LjEiLCJvcyI6Ik1hYyBPUyBYIiwib3NWZXJzaW9uIjoiMTAuMTUuNyIsImJyb3dzZXIiOiJDaHJvbWUvMTMwLjAuMCIsImRldmljZSI6Ik1hYyIsImxhc3RBY2Nlc3MiOjAsIm1vYmlsZSI6ZmFsc2V9\",\"AUTH_TIME\":\"1731347015\",\"authenticators-completed\":\"{\\\"10ed9980-c356-4504-b1e1-f2bff2217c0c\\\":1731347015,\\\"38f1f884-03e1-46c6-a014-318984d623bc\\\":1731347016}\"},\"state\":\"LOGGED_IN\"}',1731347017,NULL,3);
+INSERT INTO `OFFLINE_USER_SESSION` VALUES ('4c117933-07fd-45b6-a4d0-3bef8bf4e688','0696976c-46ae-46af-8aac-5e87c176905a','a0eed67d-7ba7-43be-975d-4b43b992cb82',1731479490,'0','{\"ipAddress\":\"0:0:0:0:0:0:0:1\",\"authMethod\":\"openid-connect\",\"rememberMe\":false,\"started\":0,\"notes\":{\"KC_DEVICE_NOTE\":\"eyJpcEFkZHJlc3MiOiIwOjA6MDowOjA6MDowOjEiLCJvcyI6Ik1hYyBPUyBYIiwib3NWZXJzaW9uIjoiMTAuMTUuNyIsImJyb3dzZXIiOiJDaHJvbWUvMTMwLjAuMCIsImRldmljZSI6Ik1hYyIsImxhc3RBY2Nlc3MiOjAsIm1vYmlsZSI6ZmFsc2V9\",\"AUTH_TIME\":\"1731479490\",\"authenticators-completed\":\"{\\\"10ed9980-c356-4504-b1e1-f2bff2217c0c\\\":1731479490}\"},\"state\":\"LOGGED_IN\"}',1731479491,NULL,1);
 /*!40000 ALTER TABLE `OFFLINE_USER_SESSION` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2526,7 +2526,7 @@ CREATE TABLE `USER_ROLE_MAPPING` (
 
 LOCK TABLES `USER_ROLE_MAPPING` WRITE;
 /*!40000 ALTER TABLE `USER_ROLE_MAPPING` DISABLE KEYS */;
-INSERT INTO `USER_ROLE_MAPPING` VALUES ('72211f3b-a0f6-4f90-8ced-5465b3d931fc','0696976c-46ae-46af-8aac-5e87c176905a'),('9517027d-73be-411b-9fe4-ebc8da2eebfd','0696976c-46ae-46af-8aac-5e87c176905a'),('3acc4f00-0dc8-494f-acb3-5320ca6aadbd','46b45616-8f1f-4a3b-9118-b9dd4f732431'),('b121d12d-4545-42af-b20b-a163a50b4309','46b45616-8f1f-4a3b-9118-b9dd4f732431');
+INSERT INTO `USER_ROLE_MAPPING` VALUES ('72211f3b-a0f6-4f90-8ced-5465b3d931fc','0696976c-46ae-46af-8aac-5e87c176905a'),('9517027d-73be-411b-9fe4-ebc8da2eebfd','0696976c-46ae-46af-8aac-5e87c176905a'),('3acc4f00-0dc8-494f-acb3-5320ca6aadbd','46b45616-8f1f-4a3b-9118-b9dd4f732431'),('b121d12d-4545-42af-b20b-a163a50b4309','46b45616-8f1f-4a3b-9118-b9dd4f732431'),('df97a685-6267-427a-a267-b813d8903459','46b45616-8f1f-4a3b-9118-b9dd4f732431');
 /*!40000 ALTER TABLE `USER_ROLE_MAPPING` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2569,4 +2569,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-11 12:57:34
+-- Dump completed on 2024-11-13  1:35:07
