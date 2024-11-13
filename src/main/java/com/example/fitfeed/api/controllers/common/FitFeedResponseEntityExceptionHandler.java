@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -15,6 +16,12 @@ public class FitFeedResponseEntityExceptionHandler extends ResponseEntityExcepti
     protected ResponseEntity<Object> handleGenericException(Exception ex, WebRequest request) {
         logger.error("Handling exception: ", ex);
         return this.handleExceptionInternal(ex, "Internal Server Error", new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
+
+    @ExceptionHandler(value = { HttpClientErrorException.Unauthorized.class })
+    protected ResponseEntity<Object> handleUnauthorizedException(Exception ex, WebRequest request) {
+        logger.error("Handling unauthorized exception: ", ex);
+        return this.handleExceptionInternal(ex, "Unauthorized", new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
     }
 
 }

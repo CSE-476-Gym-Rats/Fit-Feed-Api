@@ -67,7 +67,7 @@ public class WebSecurityConfig {
         }).csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests(requests -> {
-            requests.requestMatchers("/login").permitAll();
+            requests.requestMatchers("/login", "/register").permitAll();
             requests.requestMatchers("/me").authenticated();
             requests.requestMatchers("/workout", "/workouts", "/workout/{workout-id}").authenticated();
             requests.requestMatchers("/friends", "/friends/{user_id}").authenticated();
