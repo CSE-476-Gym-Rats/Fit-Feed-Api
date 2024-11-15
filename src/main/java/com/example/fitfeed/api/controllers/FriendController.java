@@ -17,38 +17,58 @@ public class FriendController {
     @Autowired
     private FriendService friendService;
 
+    @Autowired
+    private UserService userService; // Service to get user information by username
+
     // Endpoint to add a friend
     @PostMapping("/friends")
     public ResponseEntity<Friend> addFriend(JwtAuthenticationToken auth, @RequestBody FriendRequest friendRequest) {
         try {
-            // Get current user id from JWT
-            UUID userId = UUID.fromString(auth.getToken().getSubject());
+            // Get current user's username from JWT (assuming the username is stored in the JWT's subject)
+            String username = auth.getToken().getSubject();
 
-            // Get friend user id from request
-            UUID friendId = friendRequest.getFriendId();
+            // Get the friend's username from the request
+            String friendUsername = friendRequest.getFriendUsername();
 
-            // Call the service to add the friend
+            // Get user and friend IDs from usernames using the UserService
+            UUID userId = userService.getUserIdByUsername(username);
+            UUID friendId = userService.getUserIdByUsername(friendUsername);
+
+            if (userId == null || friendId == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // User or friend not found
+            }
+
+            // Call the service to add the friend relationship
             Friend friend = friendService.saveFriend(userId, friendId);
 
-            // Return response
+            // Return response with the created friend relationship
             return ResponseEntity.status(HttpStatus.CREATED).body(friend);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // Handle exceptions
         }
     }
 
     // Endpoint to delete a friend
-    @DeleteMapping("/friends/{friendId}")
-    public ResponseEntity<String> deleteFriend(JwtAuthenticationToken auth, @PathVariable UUID friendId) {
+    @DeleteMapping("/friends/{friendUsername}")
+    public ResponseEntity<String> deleteFriend(JwtAuthenticationToken auth, @PathVariable String friendUsername) {
         try {
-            UUID userId = UUID.fromString(auth.getToken().getSubject());
+            // Get current user's username from JWT
+            String username = auth.getToken().getSubject();
 
-            // Logic to delete the friend (You need to implement this logic in the service)
+            // Get user and friend IDs from usernames
+            UUID userId = userService.getUserIdByUsername(username);
+            UUID friendId = userService.getUserIdByUsername(friendUsername);
+
+            if (userId == null || friendId == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User or friend not found");
+            }
+
+            // Call the service to delete the friend relationship
             friendService.deleteFriend(userId, friendId);
 
             return ResponseEntity.status(HttpStatus.OK).body("Friendship deleted");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to delete friend");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete friend");
         }
     }
 }
