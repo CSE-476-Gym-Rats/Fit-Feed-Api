@@ -1,5 +1,6 @@
 package com.example.fitfeed.api.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,10 @@ public class Workout {
     @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Exercise> exercises = new HashSet<>();
 
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Set<Post> posts = new HashSet<>();
+
     public Workout(UUID userId, String workoutName, Long workoutTimestamp) {
         this.userId = userId;
         this.workoutName = workoutName;
@@ -44,6 +49,16 @@ public class Workout {
     public void removeExercise(Exercise exercise) {
         this.exercises.remove(exercise);
         exercise.setWorkout(null);
+    }
+
+    public void addPost(Post post) {
+        this.posts.add(post);
+        post.setWorkout(this);
+    }
+
+    public void removePost(Post post) {
+        this.posts.remove(post);
+        post.setWorkout(null);
     }
 }
 

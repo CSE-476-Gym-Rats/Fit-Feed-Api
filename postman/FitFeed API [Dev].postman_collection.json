@@ -1,164 +1,258 @@
 {
 	"info": {
-		"_postman_id": "24721168-3308-4dcd-bf39-ea123cde901d",
+		"_postman_id": "9b4ea592-420c-4adb-b50c-a89f2227d112",
 		"name": "FitFeed API [Dev]",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39577092"
+		"_exporter_id": "39607876"
 	},
 	"item": [
 		{
-			"name": "Get User",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{BASE_URL}}/me",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"me"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Post Workout",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"workoutName\": \"Test Workout\",\n    \"workoutTimestamp\": 1731004635247,\n    \"exercises\": [\n        {\n            \"exerciseName\": \"Test Exercise 1\",\n            \"sets\": 1,\n            \"reps\": 2,\n            \"weight\": 3.0\n        },\n        {\n            \"exerciseName\": \"Test Exercise 2\",\n            \"sets\": 4,\n            \"reps\": 5,\n            \"weight\": 6.0\n        }\n    ]\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Workouts",
+			"item": [
+				{
+					"name": "Post Workout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workoutName\": \"Test Workout\",\n    \"workoutTimestamp\": 1731004635247,\n    \"exercises\": [\n        {\n            \"exerciseName\": \"Test Exercise 1\",\n            \"sets\": 1,\n            \"reps\": 2,\n            \"weight\": 3.0\n        },\n        {\n            \"exerciseName\": \"Test Exercise 2\",\n            \"sets\": 4,\n            \"reps\": 5,\n            \"weight\": 6.0\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/workout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"workout"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{BASE_URL}}/workout",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"workout"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All Workouts For User",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{BASE_URL}}/workouts",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"workouts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Workout By Id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{BASE_URL}}/workout/1",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"workout",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Workout By Id",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{BASE_URL}}/workout/1",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"workout",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Login",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"dil3mma\",\r\n    \"password\": \"ilovealex\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Get All Workouts For User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/workouts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"workouts"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{BASE_URL}}/login",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"login"
-					]
+				{
+					"name": "Get Workout By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/workout/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"workout",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Workout By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/workout/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"workout",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Register",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"firstName\": \"Emma\",\r\n    \"lastName\": \"Eddy\",\r\n    \"username\": \"dil3mma\",\r\n    \"email\": \"emma@gmail.com\",\r\n    \"enabled\": true,\r\n    \"credentials\": [\r\n        {\r\n            \"type\": \"password\",\r\n            \"value\": \"ilovealex\",\r\n            \"temporary\": false\r\n        }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Post Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postText\": \"This is just a test post.\",\n    \"workoutId\": 1,\n    \"imageUri\": \"https://astrotowing.ca/wp-content/uploads/2020/08/Horizontal-Placeholder-Image.jpg\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/post",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{BASE_URL}}/register",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"register"
-					]
+				{
+					"name": "Get All Posts For User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/post/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/post/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"dil3mma\",\r\n    \"password\": \"ilovealex\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Emma\",\r\n    \"lastName\": \"Eddy\",\r\n    \"username\": \"dil3mma\",\r\n    \"email\": \"emma@gmail.com\",\r\n    \"enabled\": true,\r\n    \"credentials\": [\r\n        {\r\n            \"type\": \"password\",\r\n            \"value\": \"ilovealex\",\r\n            \"temporary\": false\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {

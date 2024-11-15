@@ -27,7 +27,7 @@ public class Exercise {
     @Column(name = "exercise_weight", nullable = true)
     private Float weight;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "workout_id", nullable = false)
     @JsonBackReference
     private Workout workout;

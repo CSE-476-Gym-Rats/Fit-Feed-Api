@@ -12,6 +12,7 @@ import java.util.UUID;
 
 public class PostRequest {
 
+    @JsonProperty
     public UUID userId;
 
     @JsonProperty(required = true)
@@ -20,19 +21,15 @@ public class PostRequest {
     @JsonProperty(required = true)
     public Long workoutId;
 
-    public Post toPost() {
+    @JsonProperty
+    public String imageUri;
+
+    public Post toPost(Workout workout) {
         return new Post(
                 this.userId,
                 this.postText,
-                this.workoutId
-        );
-    }
-
-    public Post toPost(UUID userId) {
-        return new Post(
-                userId,
-                this.workoutName,
-                this.workoutId
+                workout,
+                this.imageUri
         );
     }
 }

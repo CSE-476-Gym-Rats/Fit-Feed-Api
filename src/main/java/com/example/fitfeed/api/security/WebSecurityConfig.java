@@ -70,6 +70,7 @@ public class WebSecurityConfig {
             requests.requestMatchers("/login", "/register").permitAll();
             requests.requestMatchers("/me").authenticated();
             requests.requestMatchers("/workout", "/workouts", "/workout/{workout-id}").authenticated();
+            requests.requestMatchers("/post", "/posts", "/post/{post-id}").authenticated();
             requests.anyRequest().denyAll(); // todo: add other endpoints to filter chain
         });
 

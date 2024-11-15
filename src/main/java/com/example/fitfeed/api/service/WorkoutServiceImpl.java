@@ -1,6 +1,7 @@
 package com.example.fitfeed.api.service;
 
 import com.example.fitfeed.api.data.WorkoutRepository;
+import com.example.fitfeed.api.models.Exercise;
 import com.example.fitfeed.api.models.Workout;
 import com.example.fitfeed.api.models.dto.ExerciseRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,11 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public Workout saveWorkout(Workout workout, List<ExerciseRequest> exercises) {
         Workout savedWorkout = workoutRepository.save(workout);
-        exercises.forEach(exercise -> exerciseService.createExercise(exercise.toExercise(savedWorkout)));
-        return workoutRepository.findById(savedWorkout.getWorkoutId()).orElse(null);
+        exercises.forEach(exercise -> {
+            Exercise createdExercise = exerciseService.createExercise(exercise.toExercise(savedWorkout));
+            savedWorkout.addExercise(createdExercise);
+        });
+        return savedWorkout;
     }
 
     @Override

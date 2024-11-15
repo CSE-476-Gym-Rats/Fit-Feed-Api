@@ -18,19 +18,16 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @PostMapping("/makepost")
+    @PostMapping("/post")
     public @ResponseBody ResponseEntity<Post> createPost(JwtAuthenticationToken auth, @RequestBody PostRequest postRequest) {
-        Post post = postService.savePost(
-                postRequest
-                //postRequest.toPost(UUID.fromString(auth.getToken().getSubject())),
-                //workoutRequest.exercises.stream().toList()
-        );
+        if (postRequest.userId == null) { postRequest.userId = UUID.fromString(auth.getToken().getSubject()); }
+        Post post = postService.savePost(postRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(post);
     }
 
-    @GetMapping("/getposts")
+    @GetMapping("/posts")
     public @ResponseBody ResponseEntity<List<Post>> getPosts(JwtAuthenticationToken auth) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -39,7 +36,7 @@ public class PostController {
                 ));
     }
 
-    @GetMapping("/getposts/{post-id}")
+    @GetMapping("/post/{post-id}")
     public @ResponseBody ResponseEntity<Post> getPost(JwtAuthenticationToken auth, @PathVariable(name = "post-id") Long postId) {
         Post post = postService.getPostById(postId);
         if (post != null) {
@@ -51,7 +48,7 @@ public class PostController {
         }
     }
 
-    @DeleteMapping("/getposts/{post-id}")
+    @DeleteMapping("/post/{post-id}")
     public @ResponseBody ResponseEntity<String> deletePost(JwtAuthenticationToken auth, @PathVariable(name = "post-id") Long postId) {
         Post post = postService.getPostById(postId);
         if (post != null) {

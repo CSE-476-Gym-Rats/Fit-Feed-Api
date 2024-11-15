@@ -24,13 +24,35 @@ public class Post {
     @Column(name = "post_text", nullable = false)
     private String postText;
 
-    @Column(name = "workout_id")
-    private Long workoutId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "workout_id")
+    private Workout workout;
 
-    public Post(UUID userId, Long workoutId, String postText) {
+    @Column(name = "image_uri")
+    private String imageUri;
+
+    public Post(UUID userId, String postText) {
         this.userId = userId;
-        this.workoutId = workoutId;
         this.postText = postText;
+    }
+
+    public Post(UUID userId, String postText, Workout workout, String imageUri) {
+        this.userId = userId;
+        this.postText = postText;
+        this.workout = workout;
+        this.imageUri = imageUri;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Post )) return false;
+        return postId != null && postId.equals(((Post) o).getPostId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
 
