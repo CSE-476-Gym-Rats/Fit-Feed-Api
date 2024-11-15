@@ -6,23 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FriendServiceImpl implements FriendService {
+public class FriendService implements FriendService{
 
     @Autowired
-    private friendRepository friendRepository;
+    private FriendRepository friendRepository;
 
-    @Override
-    public Friend createFriend(Friend friend) {
+    // Method to save a friend relationship
+    public Friend saveFriend(UUID userId, UUID friendId) {
+        // Check if the user is already friends with the friend
+        if (isFriendAlready(userId, friendId)) {
+            throw new IllegalArgumentException("Friendship already exists");
+        }
+
+        // Create new friend entity
+        Friend friend = new Friend(userId, friendId);
         return friendRepository.save(friend);
     }
 
-    @Override
-    public Friend getFriendById(Long friendId) {
-        return friendRepository.findById(friendId).orElse(null);
+    // Check if the user is already friends with the friend
+    private boolean isFriendAlready(UUID userId, UUID friendId) {
+        return friendRepository.existsById(userId) && friendRepository.existsById(friendId);
     }
 
-    @Override
-    public void deleteFriendById(Long friendId) {
-        friendRepository.deleteById(friendId);
-    }
 }
