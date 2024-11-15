@@ -24,4 +24,11 @@ public class FitFeedResponseEntityExceptionHandler extends ResponseEntityExcepti
         return this.handleExceptionInternal(ex, "Unauthorized", new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
     }
 
+    @ExceptionHandler(value = { HttpClientErrorException.NotFound.class })
+    protected ResponseEntity<Object> handleNotFoundException(Exception ex, WebRequest request)
+    {
+        logger.error("Handling not found exception: ", ex);
+        return this.handleExceptionInternal(ex, "Not Found", new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
 }
