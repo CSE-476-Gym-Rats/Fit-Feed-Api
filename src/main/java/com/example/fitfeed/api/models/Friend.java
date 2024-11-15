@@ -16,15 +16,13 @@ public class Friend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "friend_id")
-    private UUID friendId;
+    private UUID friendId;  // The ID of the friend being added
 
     @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    private UUID userId;  // The ID of the user who is adding the friend
 
-    public Friend(UUID userId, UUID friend_id) {
+    public Friend(UUID userId, UUID friendId) {
         this.userId = userId;
-        this.friendId = friend_id
+        this.friendId = friendId;
     }
-
 }
-

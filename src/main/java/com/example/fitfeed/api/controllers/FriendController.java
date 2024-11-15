@@ -25,7 +25,7 @@ public class FriendController {
         );
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(Friend);
+                .body(friend);
     }
 
     // Allows the users to delete friends
