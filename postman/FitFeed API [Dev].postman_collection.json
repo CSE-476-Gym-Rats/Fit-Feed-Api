@@ -82,7 +82,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"workoutName\": \"Test Workout\",\n    \"workoutTimestamp\": 1731004635247,\n    \"exercises\": [\n        {\n            \"exerciseName\": \"Test Exercise 1\",\n            \"sets\": 1,\n            \"reps\": 2,\n            \"weight\": 3.0\n        },\n        {\n            \"exerciseName\": \"Test Exercise 2\",\n            \"sets\": 4,\n            \"reps\": 5,\n            \"weight\": 6.0\n        }\n    ]\n}",
+							"raw": "{\n    \"workoutName\": \"cccc\",\n    \"workoutTimestamp\": 1733126809466,\n    \"exercises\": [\n        {\n            \"exerciseName\": \"Test Exercise 1\",\n            \"sets\": 1,\n            \"reps\": 2,\n            \"weight\": 3.0\n        },\n        {\n            \"exerciseName\": \"Test Exercise 2\",\n            \"sets\": 4,\n            \"reps\": 5,\n            \"weight\": 6.0\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -166,7 +166,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"postText\": \"This is just a test post.\",\n    \"workoutId\": 1,\n    \"imageUri\": \"https://astrotowing.ca/wp-content/uploads/2020/08/Horizontal-Placeholder-Image.jpg\" \n}",
+							"raw": "{\n    \"postText\": \"dddddd\",\n    \"workoutId\": 2,\n    \"imageUri\": \"https://astrotowing.ca/wp-content/uploads/2020/08/Horizontal-Placeholder-Image.jpg\" \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -197,6 +197,23 @@
 							],
 							"path": [
 								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/all-posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"all-posts"
 							]
 						}
 					},

@@ -203,6 +203,23 @@
 					"response": []
 				},
 				{
+					"name": "Get All Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/all-posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"all-posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Post By Id",
 					"request": {
 						"method": "GET",

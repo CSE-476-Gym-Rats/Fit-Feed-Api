@@ -1,7 +1,9 @@
 package com.example.fitfeed.api.controllers;
 
 import com.example.fitfeed.api.models.Post;
+import com.example.fitfeed.api.models.User;
 import com.example.fitfeed.api.models.dto.PostRequest;
+import com.example.fitfeed.api.service.FriendService;
 import com.example.fitfeed.api.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,14 +11,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 public class PostController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private FriendService friendService;
 
     @PostMapping("/post")
     public @ResponseBody ResponseEntity<Post> createPost(JwtAuthenticationToken auth, @RequestBody PostRequest postRequest) {
@@ -36,8 +40,38 @@ public class PostController {
                 ));
     }
 
+    @GetMapping("/user-posts/{user-id}")
+    public @ResponseBody ResponseEntity<List<Post>> getPostsForUser(@PathVariable("user-id") UUID userId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(postService.getPostsForUserId(userId));
+    }
+
+    @GetMapping("/all-posts")
+    public @ResponseBody ResponseEntity<List<Post>> getAllPosts(JwtAuthenticationToken auth) {
+        UUID userId = UUID.fromString(auth.getToken().getSubject());
+        List<User> friends = friendService.getFriendsForUser(userId);
+
+        ArrayList<Post> posts = new ArrayList<>();
+        List<Post> userPosts = postService.getPostsForUserId(userId);
+        if (!userPosts.isEmpty()) { posts.addAll(userPosts); }
+
+        for (User friend : friends) {
+            List<Post> friendPosts = postService.getPostsForUserId(friend.getId());
+            if (!friendPosts.isEmpty()) {
+                posts.addAll(friendPosts);
+            }
+        }
+
+        posts.sort(Comparator.comparing(p -> p.getWorkout().getWorkoutTimestamp()));
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(posts);
+    }
+
     @GetMapping("/post/{post-id}")
-    public @ResponseBody ResponseEntity<Post> getPost(JwtAuthenticationToken auth, @PathVariable(name = "post-id") Long postId) {
+    public @ResponseBody ResponseEntity<Post> getPost(@PathVariable(name = "post-id") Long postId) {
         Post post = postService.getPostById(postId);
         if (post != null) {
             return ResponseEntity
@@ -49,7 +83,7 @@ public class PostController {
     }
 
     @DeleteMapping("/post/{post-id}")
-    public @ResponseBody ResponseEntity<String> deletePost(JwtAuthenticationToken auth, @PathVariable(name = "post-id") Long postId) {
+    public @ResponseBody ResponseEntity<String> deletePost(@PathVariable(name = "post-id") Long postId) {
         Post post = postService.getPostById(postId);
         if (post != null) {
             postService.deletePostById(postId);
