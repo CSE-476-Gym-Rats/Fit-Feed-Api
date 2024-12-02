@@ -63,7 +63,7 @@ public class PostController {
             }
         }
 
-        posts.sort(Comparator.comparing(p -> p.getWorkout().getWorkoutTimestamp()));
+        posts.sort(Comparator.comparing((Post p) -> p.getWorkout().getWorkoutTimestamp()).reversed());
 
         return ResponseEntity
                 .status(HttpStatus.OK)
