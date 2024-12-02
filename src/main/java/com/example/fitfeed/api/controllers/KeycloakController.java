@@ -6,11 +6,9 @@ import com.example.fitfeed.api.models.dto.KeycloakUserRequest;
 import com.example.fitfeed.api.models.dto.LoginRequest;
 import com.example.fitfeed.api.service.KeycloakService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 @RestController
@@ -27,6 +25,11 @@ public class KeycloakController {
     @PostMapping("/register")
     public @ResponseBody String register(@RequestBody KeycloakUserRequest keycloakUserRequest) {
         return keycloakService.register(keycloakUserRequest);
+    }
+
+    @GetMapping("/search")
+    public @ResponseBody User[] userSearch(@RequestParam(name = "username", required = false) String username, @RequestParam(name = "user-id", required = false) UUID userId) {
+        return (userId != null) ? new User[]{keycloakService.userSearch(userId)} : keycloakService.userSearch(username);
     }
 
 }

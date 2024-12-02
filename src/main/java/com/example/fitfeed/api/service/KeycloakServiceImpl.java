@@ -5,15 +5,15 @@ import com.example.fitfeed.api.models.User;
 import com.example.fitfeed.api.models.dto.KeycloakUserRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class KeycloakServiceImpl implements KeycloakService {
@@ -40,6 +40,52 @@ public class KeycloakServiceImpl implements KeycloakService {
         }
         HttpEntity<String> request = new HttpEntity<>(jsonString, headers);
         return restTemplate.postForObject("http://localhost:8080/admin/realms/fitfeed-realm/users", request, String.class);
+    }
+
+    @Override
+    public User[] userSearch(String username) {
+        Token adminToken = loginHelper("fitfeed-admin", "joshiscool", "admin-cli", "");
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(adminToken.getAccess_token());
+
+        String url = "http://localhost:8080/admin/realms/fitfeed-realm/users";
+        String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("username", "{username}")
+                .encode()
+                .toUriString();
+
+        Map<String, String> params = new HashMap<>();
+        params.put("username", username);
+
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+        ResponseEntity<User[]> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, request, User[].class, params);
+        return response.getBody();
+    }
+
+    @Override
+    public User userSearch(UUID userId) {
+        Token adminToken = loginHelper("fitfeed-admin", "joshiscool", "admin-cli", "");
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(adminToken.getAccess_token());
+
+        String url = "http://localhost:8080/admin/realms/fitfeed-realm/users";
+        String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)
+                .path("/{idpUserId}")
+                .encode()
+                .toUriString();
+
+        Map<String, String> params = new HashMap<>();
+        params.put("idpUserId", userId.toString());
+
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+        ResponseEntity<User> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, request, User.class, params);
+        return response.getBody();
     }
 
     private Token loginHelper(String username, String password, String clientId, String clientSecret) {

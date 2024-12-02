@@ -68,6 +68,8 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests(requests -> {
             requests.requestMatchers("/login", "/register").permitAll();
+            requests.requestMatchers("/search").authenticated();
+            requests.requestMatchers("/friend", "/friends", "/friend/{friend-user-id}").authenticated();
             requests.requestMatchers("/me").authenticated();
             requests.requestMatchers("/workout", "/workouts", "/workout/{workout-id}").authenticated();
             requests.requestMatchers("/post", "/posts", "/post/{post-id}").authenticated();
