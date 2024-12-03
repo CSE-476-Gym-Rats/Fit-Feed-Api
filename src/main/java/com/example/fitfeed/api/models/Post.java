@@ -21,6 +21,9 @@ public class Post {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
+    @Transient
+    private String username;
+
     @Column(name = "post_text", nullable = false)
     private String postText;
 
