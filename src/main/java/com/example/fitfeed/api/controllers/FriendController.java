@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +24,14 @@ public class FriendController {
     @PostMapping("/friend")
     public @ResponseBody ResponseEntity<FriendLink> addFriend(JwtAuthenticationToken auth, @RequestBody FriendRequest friendRequest) {
         if (friendRequest.userId == null) { friendRequest.userId = UUID.fromString(auth.getToken().getSubject()); }
+
+        List<User> currentFriends = friendService.getFriendsForUser(friendRequest.userId);
+        if (currentFriends.stream().anyMatch(f -> (
+                (friendRequest.friendUserId != null && (Objects.equals(f.getId(), friendRequest.friendUserId))) ||
+                (friendRequest.friendUsername != null && Objects.equals(f.getUsername(), friendRequest.friendUsername))
+        ))) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
         FriendLink friendLink = friendService.createFriendLink(friendRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
